@@ -208,29 +208,28 @@ corpus = charger_corpus()
 # ============================================
 # CONFIGURATION DES LANGUES
 # ============================================
-
-LANGUES_INFO = {
-    'eton': {
-        'nom_affichage': '🇨🇲 Eton',
-        'nom_court': 'Eton',
-        'emoji': '🇨🇲'
-    },
-    'bamoun': {
-        'nom_affichage': '🇨🇲 Bamoun',
-        'nom_court': 'Bamoun',
-        'emoji': '🇨🇲'
-    },
-    'fufulde': {
-        'nom_affichage': '🇨🇲 Fufulde',
-        'nom_court': 'Fufuldé',
-        'emoji': '🇨🇲'
-    },
-    'douala': {
-        'nom_affichage': '🇨🇲 Douala',
-        'nom_court': 'Douala',
-        'emoji': '🇨🇲'
-    }
-}
+if resultat['audio_url']:
+    st.markdown("### 🔊 Prononciation")
+    
+    st.markdown("""
+    <div class="info-box">
+    📱 Appuyez sur ▶️ pour écouter la prononciation authentique.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # AJOUTER : Utiliser la session state pour forcer un changement
+    if 'audio_langue' not in st.session_state:
+        st.session_state.audio_langue = langue_code
+    elif st.session_state.audio_langue != langue_code:
+        st.session_state.audio_langue = langue_code
+        st.rerun()  # Forcer un rechargement
+    
+    # Afficher l'audio avec cache buster
+    audio_id = f"{langue_code}_{texte_francais[:20].replace(' ', '_')}"
+    if afficher_audio_local(resultat['audio_url'], audio_id, force_unique=True):
+        st.caption("✅ Audio chargé")
+    
+    st.info("🎯 Langue à tons - Écoutez attentivement la prononciation")
 
 # ============================================
 # FONCTIONS DE RECHERCHE

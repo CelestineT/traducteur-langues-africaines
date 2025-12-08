@@ -19,7 +19,7 @@ import base64
 # ============================================
 
 st.set_page_config(
-    page_title="Traducteur Africain",
+    page_title="Traducteur Français - Langues Africaines",
     page_icon="🌍",
     layout="centered",
     initial_sidebar_state="collapsed"
